@@ -19,7 +19,7 @@
     }
     
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    body { font-family: 'Plus Jakarta Sans', 'Sarabun', sans-serif; background: var(--canvas); min-height: 100vh; padding-bottom: 60px; overflow-x: hidden; }
+    body { font-family: 'Plus Jakarta Sans', 'Sarabun', sans-serif; background: var(--canvas); min-height: 100vh; padding-bottom: 60px; overflow-x: hidden; position: relative; }
     
     /* Minimal Top Nav */
     .top-nav { background: var(--navy); padding: 13px 16px; display: flex; align-items: center; justify-content: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(26,31,46,0.15); }
@@ -27,24 +27,24 @@
 
     /* Profile Header Section */
     .profile-header { display: flex; flex-direction: column; align-items: center; padding: 45px 20px 30px; text-align: center; }
-    .profile-logo { width: 84px; height: 84px; background: var(--navy); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 700; margin-bottom: 18px; box-shadow: 0 8px 24px rgba(26,31,46,0.12); animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+    
+    /* Logo now has a cursor to hint it's clickable */
+    .profile-logo { width: 84px; height: 84px; background: var(--navy); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 700; margin-bottom: 18px; box-shadow: 0 8px 24px rgba(26,31,46,0.12); animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; cursor: pointer; user-select: none; transition: transform 0.1s; }
+    .profile-logo:active { transform: scale(0.9); background: var(--accent); }
+    
     .profile-title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: 0.5px; margin-bottom: 4px; animation: slideUpFade 0.6s ease forwards 0.1s; opacity: 0; }
     .profile-subtitle { font-size: 13px; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: 2px; animation: slideUpFade 0.6s ease forwards 0.2s; opacity: 0; }
 
     /* Content & Links */
-    .content { padding: 0 20px; max-width: 540px; margin: 0 auto; width: 100%; }
+    .content { padding: 0 20px; max-width: 540px; margin: 0 auto; width: 100%; position: relative; z-index: 10; }
     
-    /* Category Header */
     .category-section { margin-bottom: 32px; }
     .category-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--navy); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 16px; letter-spacing: 0.5px; opacity: 0; animation: slideUpFade 0.5s ease forwards; }
 
-    /* Super Interactive Buttons */
     .link-btn { display: flex; justify-content: space-between; align-items: center; width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 22px; margin-bottom: 14px; text-decoration: none; color: var(--text); font-weight: 600; font-size: 15px; box-shadow: 0 2px 8px rgba(26,31,46,0.03); position: relative; overflow: hidden; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease; opacity: 0; animation: slideUpFade 0.5s ease forwards; }
     
-    /* Hover Magic Line */
     .link-btn::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--navy); transform: scaleY(0); transform-origin: bottom; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
     
-    /* Hover Interactions */
     @media (hover: hover) {
       .link-btn:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 12px 24px rgba(26, 31, 46, 0.1); border-color: var(--navy-soft); z-index: 10; }
       .link-btn:hover::before { transform: scaleY(1); }
@@ -60,22 +60,35 @@
     @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
     @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
 
-    /* Loading State */
+    /* Loading & Errors */
     .skeleton-loader { display: flex; flex-direction: column; gap: 14px; width: 100%; margin-top: 20px; }
     .skeleton-box { height: 62px; width: 100%; background: linear-gradient(90deg, var(--border) 25%, var(--surface) 50%, var(--border) 75%); background-size: 200% 100%; animation: loadingPulse 1.5s infinite; border-radius: 14px; border: 1px solid var(--border); }
     @keyframes loadingPulse { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-    
     .error-msg { text-align: center; color: var(--accent); font-size: 13px; font-weight: 500; background: #fdf0ef; padding: 16px; border-radius: 10px; border: 1px solid #f5c6c2; display: none; margin-top: 20px; }
+
+    /* --- SECRET GAME STYLES --- */
+    .falling-food { position: fixed; top: -60px; font-size: 45px; user-select: none; cursor: pointer; z-index: 9999; animation: fall linear forwards, spin linear infinite; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); }
+    @keyframes fall { to { top: 110vh; } }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    
+    /* When a user catches the food */
+    .caught-pop { animation: catchPop 0.3s forwards !important; pointer-events: none; }
+    @keyframes catchPop { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.8; } 100% { transform: scale(0); opacity: 0; } }
+    
+    /* Score overlay */
+    .score-board { position: fixed; top: 20px; right: 20px; background: var(--navy); color: #fff; padding: 10px 20px; border-radius: 20px; font-weight: 700; font-size: 18px; z-index: 10000; display: none; box-shadow: 0 4px 12px rgba(0,0,0,0.2); animation: popIn 0.3s; }
   </style>
 </head>
 <body>
   
+  <div class="score-board" id="scoreBoard">Score: <span id="scoreText">0</span></div>
+
   <nav class="top-nav">
     <div class="nav-wordmark">LOVA</div>
   </nav>
 
   <div class="profile-header">
-    <div class="profile-logo">L</div>
+    <div class="profile-logo" id="secretTrigger">L</div>
     <h1 class="profile-title">Internal Portals</h1>
     <p class="profile-subtitle">Team Directory</p>
   </div>
@@ -87,16 +100,12 @@
       <div class="skeleton-box"></div>
       <div class="skeleton-box"></div>
     </div>
-    
-    <div class="error-msg" id="errorMessage">
-      Failed to load links.<br>Please ensure your Google Sheet sharing is set to "Anyone with the link".
-    </div>
-
-    <div id="linkContainer">
-      </div>
+    <div class="error-msg" id="errorMessage">Failed to load links.<br>Please ensure your Google Sheet sharing is set to "Anyone with the link".</div>
+    <div id="linkContainer"></div>
   </div>
 
   <script>
+    // --- MAIN HUB LOGIC ---
     const sheetId = '1jsSHt87UsJILNZw7AKsLLqym_iZtEF43SAEEzg6gxzc';
     const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
@@ -105,83 +114,164 @@
       .then(text => {
         const data = JSON.parse(text.substring(47).slice(0, -2));
         const rows = data.table.rows;
-        
         const container = document.getElementById('linkContainer');
         const loading = document.getElementById('loadingState');
         
         loading.style.display = 'none';
-
-        // 1. Organize data by category
         const categories = {};
 
         rows.forEach((row) => {
-          // Columns based on new structure:
-          // c[1] = Type, c[2] = Name, c[3] = Link
           if (row.c && row.c[1] && row.c[2] && row.c[3]) {
             const type = row.c[1].v ? row.c[1].v.trim() : "Other";
             const name = row.c[2].v ? row.c[2].v.trim() : "";
             const link = row.c[3].v ? row.c[3].v.trim() : "";
-
-            // Skip header row or empty entries
             if (name === "Name" || type === "Type" || !name || !link) return;
-
-            if (!categories[type]) {
-              categories[type] = [];
-            }
+            if (!categories[type]) categories[type] = [];
             categories[type].push({ name, link });
           }
         });
 
-        // 2. Sort categories (Force Marketing first, Operation second)
         const categoryOrder = ["Marketing", "Operation"];
         const sortedCategories = Object.keys(categories).sort((a, b) => {
           let indexA = categoryOrder.indexOf(a);
           let indexB = categoryOrder.indexOf(b);
-          // If category isn't in our forced order list, push it to the bottom
           if (indexA === -1) indexA = 999;
           if (indexB === -1) indexB = 999;
           return indexA - indexB;
         });
 
-        // 3. Render HTML with animation delays
-        let animationDelay = 0.3; // Starts after profile header finishes
-
+        let animationDelay = 0.3; 
         sortedCategories.forEach(categoryName => {
-          // Create Section Wrapper
           const section = document.createElement('div');
           section.className = 'category-section';
 
-          // Create Header
           const header = document.createElement('h2');
           header.className = 'category-title';
           header.textContent = categoryName;
           header.style.animationDelay = `${animationDelay}s`;
           section.appendChild(header);
-          
           animationDelay += 0.1;
 
-          // Create Links for this category
           categories[categoryName].forEach(item => {
             const btn = document.createElement('a');
             btn.className = 'link-btn';
             btn.href = item.link;
             btn.target = '_blank';
             btn.style.animationDelay = `${animationDelay}s`;
-            
             btn.innerHTML = `<span class="link-text">${item.name}</span> <span class="link-arrow">→</span>`;
             section.appendChild(btn);
-            
-            animationDelay += 0.1; // Stagger each button slightly
+            animationDelay += 0.1; 
           });
-
           container.appendChild(section);
         });
       })
       .catch(error => {
-        console.error('Error fetching data:', error);
         document.getElementById('loadingState').style.display = 'none';
         document.getElementById('errorMessage').style.display = 'block';
       });
+
+    // --- SECRET EASTER EGG GAME LOGIC ---
+    let clickCount = 0;
+    let gameActive = false;
+    let score = 0;
+    const trigger = document.getElementById('secretTrigger');
+    const scoreBoard = document.getElementById('scoreBoard');
+    const scoreText = document.getElementById('scoreText');
+    
+    // The menu items falling!
+    const foodItems = ['🍝', '☕', '🍰', '🍷', '🍮', '🍕'];
+
+    trigger.addEventListener('click', () => {
+      if(gameActive) return; // Don't restart if already playing
+      clickCount++;
+      
+      if(clickCount >= 5) {
+        startGame();
+        clickCount = 0;
+      }
+      
+      // Reset click count if they stop clicking
+      setTimeout(() => { clickCount = 0; }, 2000); 
+    });
+
+    function startGame() {
+      gameActive = true;
+      score = 0;
+      scoreText.innerText = score;
+      scoreBoard.style.display = 'block';
+      
+      let itemsDropped = 0;
+      
+      // Drop an item every 300ms
+      const dropInterval = setInterval(() => {
+        if(itemsDropped >= 30) {
+          clearInterval(dropInterval);
+          setTimeout(endGame, 4000); // Wait for last items to fall
+          return;
+        }
+        
+        spawnFood();
+        itemsDropped++;
+      }, 300);
+    }
+
+    function spawnFood() {
+      const food = document.createElement('div');
+      food.className = 'falling-food';
+      
+      // Randomize the item
+      food.innerText = foodItems[Math.floor(Math.random() * foodItems.length)];
+      
+      // Randomize position across the width
+      food.style.left = Math.random() * 85 + 'vw';
+      
+      // Randomize fall speed and spin speed
+      const fallDuration = Math.random() * 2 + 2.5; // between 2.5s and 4.5s
+      const spinDuration = Math.random() * 2 + 1;
+      food.style.animationDuration = `${fallDuration}s, ${spinDuration}s`;
+      
+      // Catch mechanic
+      food.addEventListener('mousedown', function() {
+        if(this.classList.contains('caught-pop')) return;
+        
+        score += 10;
+        scoreText.innerText = score;
+        
+        // Change the element to a star or sparkle when caught!
+        this.innerText = '✨';
+        this.classList.add('caught-pop');
+        
+        // Remove from DOM after pop animation
+        setTimeout(() => this.remove(), 300);
+      });
+      
+      // Support for mobile touch catching
+      food.addEventListener('touchstart', function(e) {
+        e.preventDefault(); // Stop scrolling while playing
+        if(this.classList.contains('caught-pop')) return;
+        score += 10;
+        scoreText.innerText = score;
+        this.innerText = '✨';
+        this.classList.add('caught-pop');
+        setTimeout(() => this.remove(), 300);
+      });
+
+      document.body.appendChild(food);
+      
+      // Cleanup items that hit the floor
+      setTimeout(() => {
+        if(document.body.contains(food)) food.remove();
+      }, fallDuration * 1000);
+    }
+
+    function endGame() {
+      gameActive = false;
+      scoreBoard.innerHTML = `Final Score: ${score}! <br><span style="font-size:12px; font-weight:400">Click logo 5x to replay</span>`;
+      setTimeout(() => {
+        scoreBoard.style.display = 'none';
+        scoreBoard.innerHTML = `Score: <span id="scoreText">0</span>`; // Reset text for next time
+      }, 5000);
+    }
   </script>
 </body>
 </html>
