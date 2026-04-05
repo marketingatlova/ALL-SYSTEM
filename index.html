@@ -21,11 +21,11 @@
     /* Profile Header Section */
     .profile-header { display: flex; flex-direction: column; align-items: center; padding: 45px 20px 30px; text-align: center; }
     
-    /* Easter Egg Logo Trigger (Game 1) */
+    /* Logo Trigger */
     .profile-logo-wrapper { display: flex; align-items: center; justify-content: center; width: 84px; height: 84px; background: var(--navy); border-radius: 50%; color: #fff; font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 700; box-shadow: 0 8px 24px rgba(26,31,46,0.12); cursor: pointer; user-select: none; transition: transform 0.1s; margin-bottom: 18px; }
     .profile-logo-wrapper:active { transform: scale(0.9); background: var(--accent); }
 
-    .profile-title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: 0.5px; margin-bottom: 4px; }
+    .profile-title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: 0.5px; margin-bottom: 4px; cursor: pointer; user-select: none; transition: color 0.3s; }
     .profile-subtitle { font-size: 13px; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: 2px; }
 
     /* Content & Links */
@@ -43,108 +43,25 @@
     }
     .link-arrow { color: var(--border); font-size: 18px; transition: all 0.3s ease; }
 
-    /* The "DO NOT CLICK" Button (Game 2) */
+    /* The "DO NOT CLICK" Button */
     .secret-btn-container { text-align: center; margin-top: 50px; padding-bottom: 40px; }
-    .secret-btn { background: transparent; color: var(--accent); border: 2px dashed var(--accent); padding: 12px 30px; border-radius: 30px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; opacity: 0.5; }
-    .secret-btn:hover { opacity: 1; background: var(--accent); color: #fff; border-style: solid; box-shadow: 0 4px 15px rgba(192, 57, 43, 0.3); transform: scale(1.05); }
+    .secret-btn { background: transparent; color: var(--accent); border: 2px dashed var(--accent); padding: 12px 30px; border-radius: 30px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: all 0.1s ease; opacity: 0.5; z-index: 100; }
+    .secret-btn:hover { opacity: 1; background: var(--accent); color: #fff; border-style: solid; box-shadow: 0 4px 15px rgba(192, 57, 43, 0.3); }
 
-    /* --- GAME 1: BOBBLEHEAD RUSH CSS --- */
-    #rushOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(26, 31, 46, 0.98); z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; touch-action: none; }
-    .rush-header { color: #fff; text-align: center; margin-bottom: 20px; }
-    .rush-header h2 { font-family: 'Playfair Display', serif; font-size: 28px; letter-spacing: 1px; margin-bottom: 5px; color: #fcd34d; text-transform: uppercase; }
-    .rush-header p { font-size: 14px; color: #cbd5e1; }
-    
-    #rushCanvas { width: 95%; max-width: 600px; height: 260px; background: var(--canvas); border-radius: 16px; position: relative; overflow: hidden; border-bottom: 6px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-top: 4px solid var(--navy); }
-    .rush-floor { position: absolute; bottom: 0; left: 0; width: 200%; height: 25px; background: repeating-linear-gradient( 45deg, var(--navy), var(--navy) 20px, var(--navy-soft) 20px, var(--navy-soft) 40px ); animation: scrollFloor 0.8s linear infinite; z-index: 1; }
-    @keyframes scrollFloor { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-    .rush-char { position: absolute; bottom: 25px; display: flex; flex-direction: column; align-items: center; z-index: 10; }
-    #rushPlayer { left: 10%; }
-    .bobble-img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 3px solid var(--navy); z-index: 3; background: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); animation: headBop 0.4s infinite alternate ease-in-out; }
-    .body-lucas { width: 45px; height: 40px; background: var(--navy); border-radius: 15px 15px 0 0; margin-top: -10px; z-index: 2; position: relative; display: flex; justify-content: center; box-shadow: inset 0 -5px 10px rgba(0,0,0,0.3); }
-    .body-lucas::after { content: ''; width: 8px; height: 25px; background: var(--accent); margin-top: 5px; border-radius: 0 0 5px 5px; clip-path: polygon(0 0, 100% 0, 50% 100%); }
-    @keyframes headBop { from { transform: translateY(0); } to { transform: translateY(4px); } }
-
-    .hat-jeriko { width: 34px; height: 24px; background: #fff; border-radius: 6px 6px 0 0; border: 2px solid var(--border); margin-bottom: -6px; z-index: 4; position: relative; }
-    .body-jeriko { width: 48px; height: 40px; background: #fff; border-radius: 15px 15px 0 0; border: 2px solid var(--border); margin-top: -10px; z-index: 2; position: relative; box-shadow: inset 0 -5px 10px rgba(0,0,0,0.1); }
-    .rush-fire { position: absolute; bottom: 0px; right: -25px; font-size: 36px; z-index: 6; animation: flicker 0.3s infinite alternate; }
-    @keyframes flicker { from { transform: scale(1); opacity: 0.8; } to { transform: scale(1.2); opacity: 1; } }
-
-    .rush-jump { animation: rushJumpArc 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
-    @keyframes rushJumpArc { 0% { bottom: 25px; transform: rotate(0deg); } 40% { bottom: 150px; transform: rotate(15deg); } 50% { bottom: 160px; transform: rotate(0deg); } 60% { bottom: 150px; transform: rotate(-10deg); } 100% { bottom: 25px; transform: rotate(0deg); } }
-    .rush-collectible { position: absolute; font-size: 38px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); z-index: 8; animation: floatItem 1s ease-in-out infinite alternate; }
-
-    #rushGameOver { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 50; }
-    #rushGameOver h3 { color: var(--accent); font-size: 42px; font-family: 'Playfair Display', serif; margin-bottom: 5px; text-transform: uppercase; }
-    #rushGameOver p { color: var(--navy); margin-bottom: 20px; font-size: 18px; font-weight: 700; }
-    
-    .game-btn { background: var(--navy); color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-    .game-btn:active { transform: scale(0.95); }
-    .close-btn { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.2); color: #fff; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: 600; }
-
-    /* --- GAME 2: FALLING BASKET CSS --- */
-    #catchOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(26, 31, 46, 0.98); z-index: 9999; display: flex; flex-direction: column; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease; backdrop-filter: blur(5px); }
-    #catchOverlay.active { opacity: 1; visibility: visible; }
-    
-    .catch-top-bar { display: flex; justify-content: space-between; align-items: center; padding: 20px; width: 100%; max-width: 600px; margin: 0 auto; z-index: 10; }
-    .catch-score-text { color: #fcd34d; font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
-    
-    #catchArea { flex-grow: 1; position: relative; width: 100%; max-width: 600px; margin: 0 auto; overflow: hidden; touch-action: none; border-left: 2px dashed rgba(255,255,255,0.1); border-right: 2px dashed rgba(255,255,255,0.1); }
-    
-    #catchBasket { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 65px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); z-index: 5; pointer-events: none; }
-    .falling-item { position: absolute; font-size: 45px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); z-index: 4; pointer-events: none; }
-    
-    .catch-popup { position: absolute; color: #4ade80; font-weight: 800; font-size: 24px; pointer-events: none; animation: popUpPoints 0.5s forwards; z-index: 20; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-    .miss-effect { position: absolute; color: var(--accent); font-weight: 800; font-size: 20px; pointer-events: none; animation: fadeDown 0.5s forwards; z-index: 2; opacity: 0.5; }
-    @keyframes fadeDown { 0% { opacity: 0.8; transform: translateY(0); } 100% { opacity: 0; transform: translateY(20px); } }
+    /* Easter Egg Animations */
+    .food-burst { position: fixed; font-size: 30px; pointer-events: none; z-index: 9999; animation: floatUpAndFade 2s ease-out forwards; }
+    @keyframes floatUpAndFade { 0% { transform: translateY(0) scale(0.5) rotate(0deg); opacity: 1; } 100% { transform: translateY(-200px) scale(1.5) rotate(45deg); opacity: 0; } }
   </style>
 </head>
 <body>
-  
-  <div id="rushOverlay">
-    <button class="close-btn" onclick="closeRushGame()">Exit Game</button>
-    <div class="rush-header">
-      <h2>LOVA Rush</h2>
-      <p>Tap to jump! Catch food, dodge Chef.</p>
-    </div>
-    
-    <div id="rushCanvas">
-      <div class="rush-floor" id="rushFloor"></div>
-      
-      <div id="rushPlayer" class="rush-char">
-        <img src="./Lucas.png" class="bobble-img" onerror="this.src='https://ui-avatars.com/api/?name=Lucas&background=1a1f2e&color=fff&size=100'">
-        <div class="body-lucas"></div>
-      </div>
-      
-      <div id="rushEntities"></div>
-      
-      <div id="rushGameOver">
-        <h3>BURNT!</h3>
-        <p>Final Score: <span id="rushFinalScore">0</span></p>
-        <button class="game-btn" onclick="startRushGame()">Play Again</button>
-      </div>
-    </div>
-    <div style="color: #fff; font-size: 24px; font-weight: 700; margin-top: 20px;">Score: <span id="rushScoreDisplay">00000</span></div>
-  </div>
-
-  <div id="catchOverlay">
-    <div class="catch-top-bar">
-      <div class="catch-score-text">Score: <span id="catchScoreDisplay">0</span></div>
-      <button class="close-btn" style="position:relative; top:0; right:0;" onclick="closeCatchGame()">Back to Work</button>
-    </div>
-    
-    <div id="catchArea">
-      <div id="catchBasket">🧺</div>
-    </div>
-  </div>
 
   <nav class="top-nav">
     <div class="nav-wordmark">LOVA</div>
   </nav>
 
   <div class="profile-header">
-    <div class="profile-logo-wrapper" id="secretTrigger">L</div>
-    <h1 class="profile-title">Internal Portals</h1>
+    <div class="profile-logo-wrapper" id="logoTrigger">L</div>
+    <h1 class="profile-title" id="titleTrigger">Internal Portals</h1>
     <p class="profile-subtitle">Team Directory</p>
   </div>
   
@@ -153,14 +70,11 @@
   </div>
 
   <div class="secret-btn-container">
-    <button class="secret-btn" id="catchTrigger">Do Not Click</button>
+    <button class="secret-btn" id="runawayBtn">Do Not Click</button>
   </div>
 
   <script>
-    // Shared Game Assets
-    const itemsList = ['🍰', '🍝', '🍮', '☕', '🍷', '🍕']; 
-
-    // --- 0. HUB DIRECTORY LOGIC ---
+    // --- 1. HUB DIRECTORY LOGIC ---
     const sheetId = '1jsSHt87UsJILNZw7AKsLLqym_iZtEF43SAEEzg6gxzc';
     const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
@@ -202,250 +116,106 @@
       });
 
 
-    // --- 1. GAME 1: BOBBLEHEAD RUSH LOGIC ---
-    let rushClicks = 0;
-    let isRushJumping = false, isRushOver = true;
-    let rushScore = 0, rushSpeed = 6, rushFrame = 0;
-    let nextRushObs = 50, nextRushFood = 80;
-    let rushAnimId;
+    // --- 2. THE 4 EASTER EGGS ---
 
-    document.getElementById('secretTrigger').addEventListener('click', () => {
-      rushClicks++;
-      if(rushClicks >= 5) {
-        document.getElementById('rushOverlay').style.display = 'flex';
-        startRushGame();
-        rushClicks = 0;
-      }
-      setTimeout(() => { rushClicks = 0; }, 2000); 
-    });
-
-    function closeRushGame() {
-      document.getElementById('rushOverlay').style.display = 'none';
-      isRushOver = true;
-      cancelAnimationFrame(rushAnimId);
-    }
-
-    function rushJump() {
-      if (isRushOver) return;
-      if (!isRushJumping) {
-        isRushJumping = true;
-        document.getElementById('rushPlayer').classList.add("rush-jump");
-        setTimeout(() => {
-          document.getElementById('rushPlayer').classList.remove("rush-jump");
-          isRushJumping = false;
-        }, 600); 
-      }
-    }
-
-    document.getElementById('rushOverlay').addEventListener('touchstart', (e) => { if(e.target.tagName !== 'BUTTON') { e.preventDefault(); rushJump(); } }, {passive: false});
-    window.addEventListener('keydown', (e) => { if ((e.code === 'Space' || e.code === 'ArrowUp') && document.getElementById('rushOverlay').style.display === 'flex') { e.preventDefault(); rushJump(); } });
-
-    function startRushGame() {
-      isRushOver = false;
-      rushScore = 0; rushSpeed = 6; rushFrame = 0; nextRushObs = 50; nextRushFood = 80;
-      document.getElementById('rushScoreDisplay').innerText = "00000";
-      document.getElementById('rushGameOver').style.display = 'none';
-      document.getElementById('rushEntities').innerHTML = ''; 
-      document.getElementById('rushFloor').style.animationDuration = '0.8s';
-      cancelAnimationFrame(rushAnimId);
-      rushLoop();
-    }
-
-    function spawnRushObstacle() {
-        const obs = document.createElement('div');
-        obs.className = 'rush-char obstacle rush-entity';
-        obs.innerHTML = `<div class="hat-jeriko"></div><img src="./Jeriko.png" class="bobble-img" style="border-color: var(--accent);" onerror="this.src='https://ui-avatars.com/api/?name=Chef&background=c0392b&color=fff&size=100'"><div class="body-jeriko"></div><div class="rush-fire">🔥</div>`;
-        obs.style.left = document.getElementById('rushCanvas').offsetWidth + 'px';
-        document.getElementById('rushEntities').appendChild(obs);
-    }
-
-    function spawnRushFood() {
-        const item = document.createElement('div');
-        item.className = 'rush-collectible rush-entity';
-        item.innerText = itemsList[Math.floor(Math.random() * itemsList.length)];
-        item.style.bottom = (Math.random() * 50 + 90) + 'px'; 
-        item.style.left = document.getElementById('rushCanvas').offsetWidth + 'px';
-        document.getElementById('rushEntities').appendChild(item);
-    }
-
-    function rushLoop() {
-      if (isRushOver) return;
-      rushFrame++; rushScore++;
-      
-      if (rushFrame % 5 === 0) document.getElementById('rushScoreDisplay').innerText = rushScore.toString().padStart(5, '0');
-      rushSpeed = 6 + Math.floor(rushScore / 800);
-
-      if (rushFrame >= nextRushObs) {
-          spawnRushObstacle();
-          nextRushObs = rushFrame + Math.floor(Math.random() * 60) + 70 + (rushSpeed * 2);
-      }
-      if (rushFrame >= nextRushFood) {
-          spawnRushFood();
-          nextRushFood = rushFrame + Math.floor(Math.random() * 80) + 60;
-      }
-
-      let pRect = document.getElementById('rushPlayer').getBoundingClientRect();
-      const entities = document.querySelectorAll('.rush-entity');
-      
-      entities.forEach(ent => {
-        let currentLeft = parseFloat(ent.style.left);
-        currentLeft -= rushSpeed;
-        ent.style.left = currentLeft + 'px';
-        
-        if (currentLeft < -80) { ent.remove(); return; }
-
-        let eRect = ent.getBoundingClientRect();
-        let shrink = 20; 
-        
-        if (pRect.right - shrink > eRect.left && pRect.left + shrink < eRect.right && pRect.bottom > eRect.top + shrink && pRect.top + shrink < eRect.bottom) {
-            if (ent.classList.contains('obstacle')) {
-                isRushOver = true;
-                cancelAnimationFrame(rushAnimId);
-                document.getElementById('rushFloor').style.animationDuration = '0s';
-                document.getElementById('rushFinalScore').innerText = rushScore;
-                document.getElementById('rushGameOver').style.display = 'flex';
-            } else if (ent.classList.contains('rush-collectible')) {
-                rushScore += 300; 
-                ent.remove();
-            }
-        }
-      });
-      if(!isRushOver) rushAnimId = requestAnimationFrame(rushLoop);
-    }
-
-
-    // --- 2. GAME 2: FALLING BASKET LOGIC ---
-    let catchActive = false, catchScore = 0, catchFrame = 0, catchSpeed = 3, catchSpawnRate = 60;
-    let basketX = 0;
-    let catchItems = [];
-    let catchAnimId;
+    // Egg #1: The Runaway Button
+    const runawayBtn = document.getElementById('runawayBtn');
     
-    const catchOverlay = document.getElementById('catchOverlay');
-    const playArea = document.getElementById('catchArea');
-    const basket = document.getElementById('catchBasket');
-
-    document.getElementById('catchTrigger').addEventListener('click', () => {
-      catchOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden'; 
-      startCatchGame();
-    });
-
-    function closeCatchGame() {
-      catchOverlay.classList.remove('active');
-      document.body.style.overflow = '';
-      catchActive = false;
-      cancelAnimationFrame(catchAnimId);
+    function moveButton() {
+      // Calculate random position within viewport
+      const maxX = window.innerWidth - runawayBtn.offsetWidth;
+      const maxY = window.innerHeight - runawayBtn.offsetHeight;
+      const newX = Math.max(0, Math.floor(Math.random() * maxX));
+      const newY = Math.max(0, Math.floor(Math.random() * maxY));
+      
+      runawayBtn.style.position = 'fixed';
+      runawayBtn.style.left = newX + 'px';
+      runawayBtn.style.top = newY + 'px';
     }
 
-    function startCatchGame() {
-      catchItems.forEach(item => item.el.remove());
-      catchItems = [];
-      catchScore = 0; catchSpeed = 3; catchSpawnRate = 60; catchFrame = 0;
-      document.getElementById('catchScoreDisplay').innerText = catchScore;
-      catchActive = true;
-      basketX = playArea.offsetWidth / 2;
-      basket.style.left = basketX + 'px';
-      basket.style.transform = 'translateX(-50%)'; // Ensure it's centered on the coordinate
-      cancelAnimationFrame(catchAnimId);
-      catchLoop();
-    }
-
-    // PERFECTED MOUSE/TOUCH TRACKING FOR BASKET
-    function moveBasket(clientX) {
-      if (!catchActive) return;
-      const rect = playArea.getBoundingClientRect();
-      
-      // Calculate cursor position strictly relative to the play area box
-      let x = clientX - rect.left;
-      
-      // Keep it inside the box borders (assuming basket is ~70px wide)
-      const margin = 40; 
-      if (x < margin) x = margin;
-      if (x > rect.width - margin) x = rect.width - margin;
-      
-      basketX = x;
-      basket.style.left = x + 'px';
-      basket.style.transform = 'translateX(-50%)';
-    }
-
-    catchOverlay.addEventListener('mousemove', (e) => { moveBasket(e.clientX); });
-    catchOverlay.addEventListener('touchmove', (e) => {
+    // Moves when mouse hovers (Desktop) or touch starts (Mobile)
+    runawayBtn.addEventListener('mouseover', moveButton);
+    runawayBtn.addEventListener('touchstart', (e) => {
       e.preventDefault(); 
-      moveBasket(e.touches[0].clientX);
-    }, { passive: false });
-
-    function spawnCatchItem() {
-      const el = document.createElement('div');
-      el.className = 'falling-item';
-      el.innerText = itemsList[Math.floor(Math.random() * itemsList.length)];
-      
-      const margin = 40;
-      const randomX = Math.floor(Math.random() * (playArea.offsetWidth - margin * 2)) + margin;
-      
-      el.style.left = `${randomX}px`;
-      el.style.transform = 'translateX(-50%)';
-      el.style.top = `-50px`; 
-      playArea.appendChild(el);
-
-      catchItems.push({ el: el, x: randomX, y: -50, speed: catchSpeed + (Math.random() * 2 - 1) });
-    }
-
-    function catchLoop() {
-      if (!catchActive) return;
-      catchFrame++;
-
-      if (catchFrame % 600 === 0) {
-        catchSpeed += 0.5; 
-        if (catchSpawnRate > 25) catchSpawnRate -= 5; 
-      }
-
-      if (catchFrame % catchSpawnRate === 0) spawnCatchItem();
-
-      const catchLine = playArea.offsetHeight - 90; 
-      const catchRadius = 55; 
-
-      for (let i = catchItems.length - 1; i >= 0; i--) {
-        let item = catchItems[i];
-        item.y += item.speed;
-        item.el.style.top = `${item.y}px`;
-
-        // Check if crossed basket line
-        if (item.y > catchLine && item.y < catchLine + 40) {
-          if (Math.abs(item.x - basketX) < catchRadius) {
-            catchScore += 10;
-            document.getElementById('catchScoreDisplay').innerText = catchScore;
-            
-            // Pop effect
-            const pop = document.createElement('div');
-            pop.className = 'catch-popup'; pop.innerText = '+10';
-            pop.style.left = `${item.x}px`; pop.style.top = `${catchLine - 20}px`;
-            playArea.appendChild(pop);
-            setTimeout(() => pop.remove(), 500);
-
-            item.el.remove();
-            catchItems.splice(i, 1);
-            continue;
-          }
-        }
-
-        // Missed item
-        if (item.y > playArea.offsetHeight) {
-          const miss = document.createElement('div');
-          miss.className = 'miss-effect'; miss.innerText = 'Drop!';
-          miss.style.left = `${item.x}px`; miss.style.top = `${playArea.offsetHeight - 40}px`;
-          playArea.appendChild(miss);
-          setTimeout(() => miss.remove(), 500);
-          
-          item.el.remove();
-          catchItems.splice(i, 1);
-        }
-      }
-
-      catchAnimId = requestAnimationFrame(catchLoop);
-    }
+      moveButton();
+    });
     
-    // Keep basket in bounds if window resizes
-    window.addEventListener('resize', () => { if (catchActive) moveBasket(basketX + playArea.getBoundingClientRect().left); });
+    // If they actually catch it
+    runawayBtn.addEventListener('click', () => {
+      alert('Wow, you caught it! The chef is impressed. 👨‍🍳');
+      runawayBtn.style.position = 'static'; // reset it
+    });
+
+    // Egg #2: Logo Food Explosion (5 Clicks)
+    let logoClicks = 0;
+    const foodItems = ['🍰', '🍝', '🍮', '☕', '🍷', '🍕'];
+    
+    document.getElementById('logoTrigger').addEventListener('click', (e) => {
+      logoClicks++;
+      if(logoClicks >= 5) {
+        // Spawn 20 random food emojis
+        for(let i=0; i<20; i++) {
+          setTimeout(() => {
+            const food = document.createElement('div');
+            food.innerText = foodItems[Math.floor(Math.random() * foodItems.length)];
+            food.className = 'food-burst';
+            // Start near the logo
+            food.style.left = (e.clientX + (Math.random() * 100 - 50)) + 'px';
+            food.style.top = (e.clientY + (Math.random() * 50)) + 'px';
+            document.body.appendChild(food);
+            
+            // Clean up DOM
+            setTimeout(() => food.remove(), 2000);
+          }, i * 50); // Stagger the spawns
+        }
+        logoClicks = 0;
+      }
+      setTimeout(() => { logoClicks = 0; }, 2000); 
+    });
+
+    // Egg #3: The Secret Password (Barrel Roll)
+    let typedStr = '';
+    window.addEventListener('keydown', (e) => {
+      // Ignore if typing in an input field (if you ever add one)
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      
+      typedStr += e.key.toLowerCase();
+      // Keep only the last 4 characters
+      if (typedStr.length > 4) typedStr = typedStr.slice(-4);
+      
+      if (typedStr === 'lova') {
+        document.body.style.transition = 'transform 1s ease-in-out';
+        document.body.style.transform = 'rotate(360deg)';
+        
+        setTimeout(() => {
+          document.body.style.transition = 'none';
+          document.body.style.transform = 'rotate(0deg)';
+        }, 1000);
+        typedStr = '';
+      }
+    });
+
+    // Egg #4: The Stressed Chef Title
+    let titleClicks = 0;
+    const titleText = document.getElementById('titleTrigger');
+    const originalText = titleText.innerText;
+
+    titleText.addEventListener('click', () => {
+      titleClicks++;
+      if(titleClicks >= 3) {
+        titleText.innerText = "86 EVERYTHING!";
+        titleText.style.color = "var(--accent)";
+        
+        setTimeout(() => {
+          titleText.innerText = originalText;
+          titleText.style.color = "var(--text)";
+        }, 3000);
+        
+        titleClicks = 0;
+      }
+      setTimeout(() => { titleClicks = 0; }, 2000);
+    });
+
   </script>
 </body>
 </html>
