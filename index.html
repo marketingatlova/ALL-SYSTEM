@@ -9,68 +9,86 @@
     :root {
       --navy: #1a1f2e; --navy-soft: #2d3447; --canvas: #f7f5f0; --surface: #ffffff;
       --border: #e4e1db; --text: #1a1f2e; --text-2: #5a5750; --text-3: #9a9690; --accent: #c0392b;
+      --rainbow: transparent;
     }
     .dark-mode {
       --canvas: #12151e; --surface: #1a1f2e; --text: #f7f5f0; --text-2: #ede9e3; --border: #2d3447;
     }
     
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    body { font-family: 'Plus Jakarta Sans', 'Sarabun', sans-serif; background: var(--canvas); min-height: 100vh; padding-bottom: 80px; transition: background 0.5s ease, transform 1s ease; }
+    body { 
+        font-family: 'Plus Jakarta Sans', 'Sarabun', sans-serif; 
+        background: var(--rainbow, var(--canvas)); 
+        min-height: 100vh; 
+        padding-bottom: 80px; 
+        transition: background 0.5s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    }
     
-    .top-nav { background: var(--navy); padding: 13px 16px; display: flex; align-items: center; justify-content: center; position: sticky; top: 0; z-index: 50; box-shadow: 0 4px 20px rgba(26,31,46,0.15); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    /* Extreme Rainbow Egg Background */
+    .rainbow-bg {
+        background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+        background-size: 1800% 1800%;
+        animation: rainbowAnim 8s ease infinite;
+    }
+    @keyframes rainbowAnim { 0%{background-position:0% 82%} 50%{background-position:100% 19%} 100%{background-position:0% 82%} }
+
+    .top-nav { background: var(--navy); padding: 13px 16px; display: flex; align-items: center; justify-content: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(26,31,46,0.15); }
     .nav-wordmark { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: #fff; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; }
 
-    .profile-header { display: flex; flex-direction: column; align-items: center; padding: 45px 20px 30px; text-align: center; }
+    .profile-header { display: flex; flex-direction: column; align-items: center; padding: 45px 20px 30px; text-align: center; transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
     .profile-logo-wrapper { display: flex; align-items: center; justify-content: center; width: 84px; height: 84px; background: var(--navy); border-radius: 50%; color: #fff; font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 700; box-shadow: 0 8px 24px rgba(26,31,46,0.12); cursor: pointer; user-select: none; transition: transform 0.1s; margin-bottom: 18px; }
-    .profile-logo-wrapper:active { transform: scale(0.9); background: var(--accent); }
 
     .profile-title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: 0.5px; margin-bottom: 4px; cursor: pointer; user-select: none; }
     .profile-subtitle { font-size: 13px; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: 2px; cursor: pointer; }
 
-    .content { padding: 0 20px; max-width: 540px; margin: 0 auto; width: 100%; transition: transform 0.4s ease; }
+    .content { padding: 0 20px; max-width: 540px; margin: 0 auto; width: 100%; transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
     .category-section { margin-bottom: 32px; }
-    .category-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--navy); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 16px; letter-spacing: 0.5px; transition: color 0.3s; }
-    .dark-mode .category-title { color: var(--accent); }
+    .category-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--navy); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 16px; letter-spacing: 0.5px; }
 
     .link-btn { display: flex; justify-content: space-between; align-items: center; width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 22px; margin-bottom: 14px; text-decoration: none; color: var(--text); font-weight: 600; font-size: 15px; box-shadow: 0 2px 8px rgba(26,31,46,0.03); position: relative; overflow: hidden; transition: all 0.3s ease; }
     .link-btn::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--navy); transform: scaleY(0); transform-origin: bottom; transition: transform 0.3s ease; }
-    .link-btn:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(26, 31, 46, 0.08); border-color: var(--navy-soft); }
-    .link-btn:hover::before { transform: scaleY(1); }
-    .link-arrow { color: var(--border); font-size: 18px; transition: all 0.3s ease; }
-    .link-btn.sparkle { animation: sparkleGold 1s infinite alternate; }
-    @keyframes sparkleGold { from { box-shadow: 0 0 5px #ffd700; } to { box-shadow: 0 0 20px #ffd700; border-color: #ffd700; } }
+    .link-btn:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(26, 31, 46, 0.08); }
+    
+    .link-btn.sparkle { animation: sparkleGold 1s infinite alternate; background: #ffd700 !important; color: #1a1f2e !important; }
+    .pulse { animation: linkPulse 0.5s infinite alternate; }
+    @keyframes linkPulse { from { transform: scale(1); } to { transform: scale(1.1); } }
+    @keyframes sparkleGold { from { box-shadow: 0 0 5px #ffd700; } to { box-shadow: 0 0 30px #ffd700; } }
 
     .secret-btn-container { text-align: center; margin-top: 50px; padding-bottom: 40px; }
-    .secret-btn { background: transparent; color: var(--accent); border: 2px dashed var(--accent); padding: 12px 30px; border-radius: 30px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: all 0.1s ease; opacity: 0.5; position: relative; z-index: 100; }
+    .secret-btn { background: transparent; color: var(--accent); border: 2px dashed var(--accent); padding: 12px 30px; border-radius: 30px; font-size: 12px; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: all 0.1s ease; opacity: 0.5; position: relative; z-index: 10; }
 
-    .food-burst, .confetti { position: fixed; pointer-events: none; z-index: 9999; animation: floatUpAndFade 2s ease-out forwards; }
+    .food-burst { position: fixed; font-size: 30px; pointer-events: none; z-index: 9999; animation: floatUpAndFade 2s ease-out forwards; }
     @keyframes floatUpAndFade { 0% { transform: translateY(0) scale(0.5); opacity: 1; } 100% { transform: translateY(-300px) scale(1.5); opacity: 0; } }
-    .ghost { position: fixed; font-size: 40px; pointer-events: none; z-index: 9998; animation: floatAcross 4s linear forwards; top: 20%; }
-    @keyframes floatAcross { from { left: -50px; opacity: 0.8; } to { left: 110vw; opacity: 0; } }
+    
+    .fall-away { transform: translateY(120vh) rotate(10deg) !important; }
+    .shake { animation: extremeShake 0.1s infinite; }
+    @keyframes extremeShake { 0% { transform: translate(2px, 1px) rotate(0deg); } 50% { transform: translate(-1px, -2px) rotate(-1deg); } 100% { transform: translate(3px, 2px) rotate(1deg); } }
   </style>
 </head>
 <body>
 
-  <nav class="top-nav" id="mainNav">
+  <nav class="top-nav">
     <div class="nav-wordmark" id="navLogo">LOVA</div>
   </nav>
 
-  <div class="profile-header">
-    <div class="profile-logo-wrapper" id="logoTrigger">L</div>
-    <h1 class="profile-title" id="titleTrigger">Internal Portals</h1>
-    <p class="profile-subtitle" id="subtitleTrigger">Team Directory</p>
-  </div>
-  
-  <div class="content" id="linkContainer">
-    <div style="text-align:center; padding: 40px; color: var(--text-3);">Loading...</div>
-  </div>
+  <div id="wholePage" style="transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);">
+    <div class="profile-header">
+      <div class="profile-logo-wrapper" id="logoTrigger">L</div>
+      <h1 class="profile-title" id="titleTrigger">Internal Portals</h1>
+      <p class="profile-subtitle" id="subtitleTrigger">Team Directory</p>
+    </div>
+    
+    <div class="content" id="linkContainer">
+      <div style="text-align:center; padding: 40px; color: var(--text-3);">Connecting...</div>
+    </div>
 
-  <div class="secret-btn-container">
-    <button class="secret-btn" id="runawayBtn">Do Not Click</button>
+    <div class="secret-btn-container">
+      <button class="secret-btn" id="runawayBtn">Do Not Click</button>
+    </div>
   </div>
 
   <script>
-    // --- 1. DATA LOADING ---
+    // --- DATA FETCH ---
     const sheetId = '1jsSHt87UsJILNZw7AKsLLqym_iZtEF43SAEEzg6gxzc';
     const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
@@ -96,11 +114,9 @@
         sec.innerHTML = `<h2 class="category-title">${cat}</h2>`;
         categories[cat].forEach(item => {
           const a = document.createElement('a');
-          a.className = 'link-btn';
-          a.href = item.link;
-          a.target = '_blank';
+          a.className = 'link-btn'; a.href = item.link; a.target = '_blank';
           a.innerHTML = `<span>${item.name}</span> <span class="link-arrow">→</span>`;
-          // Egg #8: Golden Sparkle
+          // 8. Golden Ticket
           let timer;
           a.onmouseenter = () => timer = setTimeout(() => a.classList.add('sparkle'), 5000);
           a.onmouseleave = () => { clearTimeout(timer); a.classList.remove('sparkle'); };
@@ -110,9 +126,32 @@
       });
     });
 
-    // --- 2. THE 10 EASTER EGGS ---
+    // --- 10 EXTREME EASTER EGGS ---
 
-    // 1. Runaway Button
+    // 1. Extreme Gravity Glitch (Nav Logo)
+    document.getElementById('navLogo').onclick = () => {
+      const page = document.getElementById('wholePage');
+      page.classList.add('fall-away');
+      setTimeout(() => page.classList.remove('fall-away'), 1500);
+    };
+
+    // 2. Rainbow Page (Keyboard R)
+    // 3, 5, 9 & 10. Keyboard Secrets
+    let typed = '';
+    window.onkeydown = (e) => {
+      typed = (typed + e.key.toLowerCase()).slice(-5);
+      if (e.key === 'r') document.body.classList.toggle('rainbow-bg'); // Egg #2
+      if (typed.endsWith('lova')) { document.body.style.transform = 'rotate(360deg)'; setTimeout(()=>document.body.style.transform='none', 1000); } // Egg #5
+      if (typed.endsWith('big')) { // Egg #9
+        document.querySelectorAll('.link-btn').forEach(b => b.classList.toggle('pulse'));
+      }
+      if (typed.endsWith('shake')) { // Egg #10
+        document.body.classList.add('shake');
+        setTimeout(() => document.body.classList.remove('shake'), 1000);
+      }
+    };
+
+    // 3. Extreme Runaway Button
     const btn = document.getElementById('runawayBtn');
     const move = () => {
       btn.style.position = 'fixed';
@@ -120,88 +159,44 @@
       btn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
     };
     btn.addEventListener('mouseover', move);
-    btn.addEventListener('touchstart', (e) => { e.preventDefault(); move(); });
-    btn.onclick = () => { alert("🏆 YOU CAUGHT IT!"); btn.style.position = 'static'; };
+    btn.onclick = () => { alert("IMPOSSIBLE! 🏆"); btn.style.position = 'static'; };
 
-    // 2. Food Explosion (Logo 5x)
+    // 4. Food Explosion (Logo 5x)
     let logoCount = 0;
     document.getElementById('logoTrigger').onclick = (e) => {
       if (++logoCount >= 5) {
-        for(let i=0; i<20; i++) setTimeout(() => {
-          const f = document.createElement('div');
-          f.className = 'food-burst';
+        for(let i=0; i<25; i++) setTimeout(() => {
+          const f = document.createElement('div'); f.className = 'food-burst';
           f.innerText = ['🍕','🍷','🍝','🍰','☕'][Math.floor(Math.random()*5)];
-          f.style.left = e.clientX + (Math.random()*100-50) + 'px';
+          f.style.left = e.clientX + (Math.random()*200-100) + 'px';
           f.style.top = e.clientY + 'px';
           document.body.appendChild(f);
           setTimeout(() => f.remove(), 2000);
-        }, i*50);
+        }, i*40);
         logoCount = 0;
       }
     };
 
-    // 3 & 6. Keyboard Secrets (lova / party)
-    let typed = '';
-    window.onkeydown = (e) => {
-      typed = (typed + e.key.toLowerCase()).slice(-5);
-      if (typed.endsWith('lova')) { document.body.style.transform = 'rotate(360deg)'; setTimeout(()=>document.body.style.transform='none', 1000); }
-      if (typed.endsWith('party')) {
-        for(let i=0; i<30; i++) {
-          const c = document.createElement('div');
-          c.className = 'confetti';
-          c.style.left = Math.random()*100 + 'vw';
-          c.style.top = '100vh';
-          c.style.background = ['#c0392b','#ffd700','#1a1f2e'][Math.floor(Math.random()*3)];
-          c.style.width = '10px'; c.style.height = '10px';
-          document.body.appendChild(c);
-          setTimeout(() => c.remove(), 2000);
-        }
-      }
-      // 10. Rainbow Road (r key)
-      if (e.key === 'r') {
-        const colors = ['#c0392b', '#e67e22', '#f1c40f', '#27ae60', '#2980b9', '#8e44ad'];
-        let ci = 0;
-        const ri = setInterval(() => {
-          document.documentElement.style.setProperty('--accent', colors[ci++ % colors.length]);
-        }, 200);
-        setTimeout(() => clearInterval(ri), 3000);
-      }
-    };
-
-    // 4. The Rush (Title 3x)
+    // 6. The Rush (Title 3x)
     let titleCount = 0;
     document.getElementById('titleTrigger').onclick = function() {
       if (++titleCount >= 3) {
         const orig = this.innerText;
         this.innerText = "SERVICE RUSH!";
         this.style.color = "var(--accent)";
-        setTimeout(() => { this.innerText = orig; this.style.color = ""; }, 3000);
+        document.body.classList.add('shake');
+        setTimeout(() => { 
+            this.innerText = orig; this.style.color = ""; 
+            document.body.classList.remove('shake');
+        }, 3000);
         titleCount = 0;
       }
     };
 
-    // 5. Night Mode (Subtitle 3x)
+    // 7. Night Mode (Subtitle 3x)
     let subCount = 0;
     document.getElementById('subtitleTrigger').onclick = () => {
       if (++subCount >= 3) { document.body.classList.toggle('dark-mode'); subCount = 0; }
-    };
-
-    // 7. Gravity Glitch (Nav Logo)
-    document.getElementById('navLogo').onclick = () => {
-      const c = document.getElementById('linkContainer');
-      c.style.transform = 'translateY(20px)';
-      setTimeout(() => c.style.transform = 'translateY(0)', 400);
-      const nav = document.getElementById('mainNav');
-      nav.style.transform = 'scale(1.1)';
-      setTimeout(() => nav.style.transform = 'scale(1)', 300);
-    };
-
-    // 9. Ghost Logo (Double click header)
-    document.querySelector('.profile-header').ondblclick = () => {
-      const g = document.createElement('div');
-      g.className = 'ghost'; g.innerText = '👻';
-      document.body.appendChild(g);
-      setTimeout(() => g.remove(), 4000);
     };
 
   </script>
