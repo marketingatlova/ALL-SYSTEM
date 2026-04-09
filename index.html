@@ -96,136 +96,50 @@
     @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
     .boss-game-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+      font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700;
+      color: var(--navy); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 2px;
     }
-    .boss-game-subtitle {
-      font-size: 13px;
-      color: var(--text-3);
-      margin-bottom: 20px;
-    }
-    .boss-game-score {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: 15px;
-    }
-    .boss-timer {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--accent);
-      margin-bottom: 15px;
-    }
-    .boss-game-question {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 20px;
-      padding: 15px;
-      background: var(--canvas);
-      border-radius: 12px;
-      border-left: 4px solid var(--accent);
-    }
-    .boss-faces-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 25px;
-    }
-    .boss-face-card {
-      aspect-ratio: 1;
-      border-radius: 12px;
-      border: 3px solid var(--border);
-      overflow: hidden;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      background: var(--canvas);
-      position: relative;
-    }
-    .boss-face-card:hover {
-      transform: scale(1.05);
-      border-color: var(--navy);
-      box-shadow: 0 8px 20px rgba(26,31,46,0.2);
-    }
-    .boss-face-card.correct {
-      animation: correctPulse 0.5s ease;
-      border-color: #27ae60;
-      box-shadow: 0 0 20px rgba(39, 174, 96, 0.5);
-    }
-    .boss-face-card.wrong {
-      animation: wrongShake 0.5s ease;
-      border-color: var(--accent);
-    }
-    @keyframes correctPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-    @keyframes wrongShake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-10px); }
-      75% { transform: translateX(10px); }
-    }
-    .boss-face-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .boss-game-result {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 15px;
-      display: none;
-      padding: 10px;
-      border-radius: 8px;
-    }
-    .boss-game-result.show { display: block; }
-    .boss-game-result.win { 
-      color: #27ae60; 
-      background: rgba(39, 174, 96, 0.1);
-    }
-    .boss-game-result.lose { 
-      color: var(--accent);
-      background: rgba(192, 57, 43, 0.1);
-    }
-    .boss-game-buttons {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+    .boss-game-subtitle { font-size: 13px; color: var(--text-3); margin-bottom: 20px; }
+    .boss-game-score { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 15px; }
+    
+    .boss-game-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
     .boss-game-btn {
-      padding: 10px 25px;
-      border: none;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 13px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      padding: 10px 25px; border: none; border-radius: 10px; font-weight: 600;
+      font-size: 13px; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;
     }
-    .boss-game-btn.primary {
-      background: var(--navy);
-      color: white;
+    .boss-game-btn.primary { background: var(--navy); color: white; }
+    .boss-game-btn.primary:hover { background: var(--navy-soft); transform: translateY(-2px); }
+    .boss-game-btn.secondary { background: var(--canvas); color: var(--navy); border: 2px solid var(--border); }
+    .boss-game-btn.secondary:hover { border-color: var(--navy); transform: translateY(-2px); }
+
+    /* BOSS FACE QUIZ SPECIFIC */
+    .boss-timer { font-size: 15px; font-weight: 600; color: var(--accent); margin-bottom: 15px; }
+    .boss-game-question { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 20px; padding: 15px; background: var(--canvas); border-radius: 12px; border-left: 4px solid var(--accent); }
+    .boss-faces-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 25px; }
+    .boss-face-card { aspect-ratio: 1; border-radius: 12px; border: 3px solid var(--border); overflow: hidden; cursor: pointer; transition: all 0.3s ease; background: var(--canvas); }
+    .boss-face-card:hover { transform: scale(1.05); border-color: var(--navy); box-shadow: 0 8px 20px rgba(26,31,46,0.2); }
+    .boss-face-card.correct { animation: correctPulse 0.5s ease; border-color: #27ae60; box-shadow: 0 0 20px rgba(39, 174, 96, 0.5); }
+    .boss-face-card.wrong { animation: wrongShake 0.5s ease; border-color: var(--accent); }
+    @keyframes correctPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    @keyframes wrongShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+    .boss-face-img { width: 100%; height: 100%; object-fit: cover; }
+    .boss-game-result { font-size: 20px; font-weight: 700; margin-bottom: 15px; display: none; padding: 10px; border-radius: 8px; }
+    .boss-game-result.show { display: block; }
+    .boss-game-result.win { color: #27ae60; background: rgba(39, 174, 96, 0.1); }
+    .boss-game-result.lose { color: var(--accent); background: rgba(192, 57, 43, 0.1); }
+
+    /* RUNNER GAME MOBILE CONTROLS */
+    .runner-controls {
+      display: flex; justify-content: space-between; margin-top: 15px; user-select: none;
     }
-    .boss-game-btn.primary:hover {
-      background: var(--navy-soft);
-      transform: translateY(-2px);
+    .control-btn {
+      background: var(--navy-soft); color: white; border: none; border-radius: 12px;
+      padding: 15px 25px; font-size: 20px; font-weight: bold; cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: background 0.1s;
     }
-    .boss-game-btn.secondary {
-      background: var(--canvas);
-      color: var(--navy);
-      border: 2px solid var(--border);
-    }
-    .boss-game-btn.secondary:hover {
-      border-color: var(--navy);
-      transform: translateY(-2px);
-    }
+    .control-btn:active { background: var(--navy); transform: scale(0.95); }
+    .dir-btns { display: flex; gap: 10px; }
+
   </style>
 </head>
 <body>
@@ -268,19 +182,29 @@
 
   <div class="boss-game-overlay" id="runnerGameOverlay">
     <div class="boss-game-container" style="max-width: 600px;">
-      <div class="boss-game-title">👨‍🍳 Service Rush!</div>
-      <div class="boss-game-subtitle">Tap canvas or press Spacebar to jump!</div>
-      <div class="boss-game-score" style="margin-bottom: 5px;">Plates Saved: <span id="runnerScore">0</span></div>
-      <canvas id="runnerCanvas" width="400" height="200" style="background: var(--canvas); border-radius: 12px; border: 2px solid var(--border); width: 100%; touch-action: none; cursor: pointer;"></canvas>
+      <div class="boss-game-title">👨‍🍳 Service Rush DX</div>
+      <div class="boss-game-subtitle">Arrow Keys to Move • UP/Space to Jump<br>Collect Bosses for +50!</div>
+      <div class="boss-game-score" style="margin-bottom: 5px;">Score: <span id="runnerScore">0</span></div>
+      
+      <canvas id="runnerCanvas" width="500" height="250" style="background: #eef2f5; border-radius: 12px; border: 3px solid var(--navy); width: 100%; touch-action: none; display: block; margin: 0 auto;"></canvas>
+      
+      <div class="runner-controls" id="runnerControls">
+        <div class="dir-btns">
+          <button class="control-btn" id="btnLeft">←</button>
+          <button class="control-btn" id="btnRight">→</button>
+        </div>
+        <button class="control-btn" id="btnJump" style="padding: 15px 40px;">JUMP</button>
+      </div>
+
       <div class="boss-game-buttons" style="margin-top: 20px;">
         <button class="boss-game-btn primary" id="startRunnerBtn">Start Service</button>
-        <button class="boss-game-btn secondary" id="closeRunnerBtn">Close</button>
+        <button class="boss-game-btn secondary" id="closeRunnerBtn">Close Game</button>
       </div>
     </div>
   </div>
 
   <script>
-    // --- DATA FETCH ---
+    // --- DATA FETCH (Unchanged) ---
     const sheetId = '1jsSHt87UsJILNZw7AKsLLqym_iZtEF43SAEEzg6gxzc';
     const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
@@ -308,7 +232,6 @@
           const a = document.createElement('a');
           a.className = 'link-btn'; a.href = item.link; a.target = '_blank';
           a.innerHTML = `<span>${item.name}</span> <span class="link-arrow">→</span>`;
-          // 8. Golden Ticket
           let timer;
           a.onmouseenter = () => timer = setTimeout(() => a.classList.add('sparkle'), 5000);
           a.onmouseleave = () => { clearTimeout(timer); a.classList.remove('sparkle'); };
@@ -318,24 +241,19 @@
       });
     });
 
-    // --- BOSS FACE GAME ---
+    // --- BOSS FACE QUIZ GAME (Unchanged) ---
     const bosses = [
       { name: 'Lucas', title: 'CEO', image: 'Lucas.png' },
       { name: 'Jeriko', title: 'Head Chef', image: 'Jeriko.png' }
     ];
 
-    let gameScore = 0;
-    let currentRound = 0;
-    let totalRounds = 5;
-    let currentBoss = null;
-    let gameTimer = null;
-    let timeLeft = 10;
+    let gameScore = 0; let currentRound = 0; let totalRounds = 5;
+    let currentBoss = null; let gameTimer = null; let timeLeft = 10;
 
     function startBossGame() {
       document.getElementById('bossGameOverlay').classList.add('active');
       document.body.style.overflow = 'hidden';
-      gameScore = 0;
-      currentRound = 0;
+      gameScore = 0; currentRound = 0;
       document.getElementById('gameScore').textContent = gameScore;
       document.getElementById('totalRounds').textContent = totalRounds;
       nextRound();
@@ -343,26 +261,17 @@
 
     function nextRound() {
       currentRound++;
-      if (currentRound > totalRounds) {
-        endGame();
-        return;
-      }
+      if (currentRound > totalRounds) return endGame();
 
-      // Reset UI
       document.getElementById('gameResult').classList.remove('show', 'win', 'lose');
       document.getElementById('nextRoundBtn').style.display = 'none';
       document.getElementById('facesGrid').style.pointerEvents = 'auto';
       
-      // Pick random boss
       currentBoss = bosses[Math.floor(Math.random() * bosses.length)];
-      
-      // Create grid with 6 cards (3 of each boss, randomized)
-      const allCards = [...bosses, ...bosses, ...bosses];
-      allCards.sort(() => Math.random() - 0.5);
+      const allCards = [...bosses, ...bosses, ...bosses].sort(() => Math.random() - 0.5);
       
       const grid = document.getElementById('facesGrid');
       grid.innerHTML = '';
-      
       allCards.forEach((boss) => {
         const card = document.createElement('div');
         card.className = 'boss-face-card';
@@ -371,50 +280,32 @@
         grid.appendChild(card);
       });
 
-      // Update question
       document.getElementById('gameQuestion').textContent = `Find ${currentBoss.name} (${currentBoss.title})`;
-      
-      // Start timer
-      timeLeft = 10;
-      updateTimer();
+      timeLeft = 10; updateTimer();
       clearInterval(gameTimer);
       gameTimer = setInterval(() => {
-        timeLeft--;
-        updateTimer();
-        if (timeLeft <= 0) {
-          clearInterval(gameTimer);
-          wrongAnswer();
-        }
+        timeLeft--; updateTimer();
+        if (timeLeft <= 0) { clearInterval(gameTimer); wrongAnswer(); }
       }, 1000);
     }
 
     function updateTimer() {
       const timerEl = document.getElementById('gameTimer');
       timerEl.textContent = `⏱️ Time: ${timeLeft}s`;
-      if (timeLeft <= 3) {
-        timerEl.style.color = 'var(--accent)';
-      } else {
-        timerEl.style.color = 'var(--text-2)';
-      }
+      timerEl.style.color = timeLeft <= 3 ? 'var(--accent)' : 'var(--text-2)';
     }
 
     function selectBoss(selectedBoss, card) {
       clearInterval(gameTimer);
       document.getElementById('facesGrid').style.pointerEvents = 'none';
-      
       if (selectedBoss.name === currentBoss.name) {
-        card.classList.add('correct');
-        gameScore++;
+        card.classList.add('correct'); gameScore++;
         document.getElementById('gameScore').textContent = gameScore;
         showResult(true);
       } else {
         card.classList.add('wrong');
-        // Highlight correct answer
         document.querySelectorAll('.boss-face-card').forEach(c => {
-          const img = c.querySelector('img');
-          if (img.alt === currentBoss.name) {
-            c.classList.add('correct');
-          }
+          if (c.querySelector('img').alt === currentBoss.name) c.classList.add('correct');
         });
         showResult(false);
       }
@@ -422,12 +313,8 @@
 
     function wrongAnswer() {
       document.getElementById('facesGrid').style.pointerEvents = 'none';
-      // Highlight correct answer
       document.querySelectorAll('.boss-face-card').forEach(c => {
-        const img = c.querySelector('img');
-        if (img.alt === currentBoss.name) {
-          c.classList.add('correct');
-        }
+        if (c.querySelector('img').alt === currentBoss.name) c.classList.add('correct');
       });
       showResult(false);
     }
@@ -436,39 +323,22 @@
       const resultEl = document.getElementById('gameResult');
       resultEl.classList.add('show');
       if (isCorrect) {
-        resultEl.textContent = '✅ Correct!';
-        resultEl.classList.add('win');
+        resultEl.textContent = '✅ Correct!'; resultEl.classList.add('win');
       } else {
-        resultEl.textContent = `❌ It was ${currentBoss.name}!`;
-        resultEl.classList.add('lose');
+        resultEl.textContent = `❌ It was ${currentBoss.name}!`; resultEl.classList.add('lose');
       }
-      
-      if (currentRound < totalRounds) {
-        document.getElementById('nextRoundBtn').style.display = 'inline-block';
-      } else {
-        setTimeout(endGame, 1500);
-      }
+      if (currentRound < totalRounds) document.getElementById('nextRoundBtn').style.display = 'inline-block';
+      else setTimeout(endGame, 1500);
     }
 
     function endGame() {
       const resultEl = document.getElementById('gameResult');
       const percentage = Math.round((gameScore / totalRounds) * 100);
-      let message = '';
-      
-      if (percentage === 100) {
-        message = '🏆 PERFECT! You know your bosses!';
-      } else if (percentage >= 80) {
-        message = '🌟 Great job! Almost perfect!';
-      } else if (percentage >= 60) {
-        message = '👍 Not bad! Keep learning!';
-      } else {
-        message = '😅 Time to meet the team more?';
-      }
+      let message = percentage === 100 ? '🏆 PERFECT!' : percentage >= 80 ? '🌟 Great job!' : percentage >= 60 ? '👍 Not bad!' : '😅 Meet the team!';
       
       document.getElementById('gameQuestion').textContent = message;
-      resultEl.textContent = `Final Score: ${gameScore} / ${totalRounds} (${percentage}%)`;
-      resultEl.classList.remove('lose');
-      resultEl.classList.add('show', 'win');
+      resultEl.textContent = `Final Score: ${gameScore} / ${totalRounds}`;
+      resultEl.classList.remove('lose'); resultEl.classList.add('show', 'win');
       document.getElementById('facesGrid').innerHTML = '';
       document.getElementById('nextRoundBtn').style.display = 'none';
       document.getElementById('gameTimer').textContent = '';
@@ -481,125 +351,221 @@
       document.body.style.overflow = '';
     };
 
-    // --- FUNNY RUNNER GAME ---
+    // --- PROPER PLATFORMER RUNNER GAME (MARIO STYLE) ---
     const runnerOverlay = document.getElementById('runnerGameOverlay');
     const runnerCanvas = document.getElementById('runnerCanvas');
     const ctx = runnerCanvas.getContext('2d');
+    
+    // Load Boss Images for the game
+    const imgLucas = new Image(); imgLucas.src = 'Lucas.png';
+    const imgJeriko = new Image(); imgJeriko.src = 'Jeriko.png';
+
     let runnerAnimId;
     let isRunning = false;
     let rScore = 0;
     let rFrameCount = 0;
-    let gameSpeed = 5;
+    let groundScroll = 0;
+    
+    // Input state
+    const keys = { left: false, right: false, jump: false };
 
-    const chef = { x: 50, y: 150, width: 30, height: 30, dy: 0, gravity: 0.6, jumpPower: -10, isJumping: false, emoji: '👨‍🍳' };
-    let kitchenObstacles = [];
+    // Player Object
+    const chef = { 
+      x: 50, y: 150, width: 30, height: 30, 
+      vx: 0, vy: 0, speed: 5, jumpPower: -11, gravity: 0.6, friction: 0.8,
+      isGrounded: false, emoji: '👨‍🍳' 
+    };
+    
+    let entities = []; // Holds obstacles and boss collectibles
+
+    // Keyboard Listeners
+    window.addEventListener('keydown', (e) => {
+      if(!isRunning) return;
+      if (e.code === 'ArrowLeft' || e.code === 'KeyA') keys.left = true;
+      if (e.code === 'ArrowRight' || e.code === 'KeyD') keys.right = true;
+      if (e.code === 'ArrowUp' || e.code === 'Space' || e.code === 'KeyW') keys.jump = true;
+      if (['ArrowUp', 'Space', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) e.preventDefault();
+    }, { passive: false });
+
+    window.addEventListener('keyup', (e) => {
+      if (e.code === 'ArrowLeft' || e.code === 'KeyA') keys.left = false;
+      if (e.code === 'ArrowRight' || e.code === 'KeyD') keys.right = false;
+      if (e.code === 'ArrowUp' || e.code === 'Space' || e.code === 'KeyW') keys.jump = false;
+    });
+
+    // Mobile On-Screen Button Listeners
+    const btnLeft = document.getElementById('btnLeft');
+    const btnRight = document.getElementById('btnRight');
+    const btnJump = document.getElementById('btnJump');
+
+    const addTouch = (elem, key) => {
+      elem.addEventListener('touchstart', (e) => { e.preventDefault(); keys[key] = true; });
+      elem.addEventListener('touchend', (e) => { e.preventDefault(); keys[key] = false; });
+      elem.addEventListener('mousedown', (e) => { e.preventDefault(); keys[key] = true; });
+      elem.addEventListener('mouseup', (e) => { e.preventDefault(); keys[key] = false; });
+      elem.addEventListener('mouseleave', (e) => { e.preventDefault(); keys[key] = false; });
+    };
+    addTouch(btnLeft, 'left'); addTouch(btnRight, 'right'); addTouch(btnJump, 'jump');
 
     function resetRunner() {
-      chef.y = 150;
-      chef.dy = 0;
-      chef.isJumping = false;
-      kitchenObstacles = [];
-      rScore = 0;
-      rFrameCount = 0;
-      gameSpeed = 5;
+      chef.x = 50; chef.y = 150; chef.vx = 0; chef.vy = 0; chef.isGrounded = false;
+      entities = []; rScore = 0; rFrameCount = 0; groundScroll = 0;
       document.getElementById('runnerScore').textContent = rScore;
       ctx.clearRect(0, 0, runnerCanvas.width, runnerCanvas.height);
-      drawChef();
-    }
-
-    function drawChef() {
-      ctx.font = '30px Arial';
-      ctx.fillText(chef.emoji, chef.x, chef.y + 25);
-    }
-
-    function handleJump(e) {
-      if ((e.type === 'keydown' && e.code === 'Space') || e.type === 'touchstart' || e.type === 'mousedown') {
-        if (!chef.isJumping && isRunning) {
-          chef.dy = chef.jumpPower;
-          chef.isJumping = true;
-          e.preventDefault(); // Stop scrolling when hitting space
-        }
-      }
-    }
-
-    window.addEventListener('keydown', handleJump, { passive: false });
-    runnerCanvas.addEventListener('touchstart', handleJump, { passive: false });
-    runnerCanvas.addEventListener('mousedown', handleJump);
-
-    function startRunnerGame() {
-      runnerOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-      resetRunner();
     }
 
     function runnerLoop() {
       if (!isRunning) return;
       ctx.clearRect(0, 0, runnerCanvas.width, runnerCanvas.height);
 
-      // Physics
-      chef.y += chef.dy;
-      chef.dy += chef.gravity;
-      if (chef.y >= 150) {
-        chef.y = 150;
-        chef.isJumping = false;
+      // --- PHYSICS & MOVEMENT ---
+      // Horizontal movement
+      if (keys.left) chef.vx -= 1;
+      if (keys.right) chef.vx += 1;
+      
+      chef.vx *= chef.friction; // Apply friction so it feels like Mario sliding
+      
+      // Speed cap
+      if (chef.vx > chef.speed) chef.vx = chef.speed;
+      if (chef.vx < -chef.speed) chef.vx = -chef.speed;
+      
+      // Jumping
+      if (keys.jump && chef.isGrounded) {
+        chef.vy = chef.jumpPower;
+        chef.isGrounded = false;
       }
-      drawChef();
 
-      // Obstacles logic
-      if (rFrameCount % Math.max(40, 100 - (rScore * 2)) === 0) {
-        const emojis = ['🍷', '🍝', '🔥', '🍕', '🗑️'];
-        kitchenObstacles.push({ 
-          x: runnerCanvas.width, 
-          y: 155, 
-          width: 30, 
-          height: 30, 
-          emoji: emojis[Math.floor(Math.random() * emojis.length)] 
+      // Gravity & Position update
+      chef.vy += chef.gravity;
+      chef.x += chef.vx;
+      chef.y += chef.vy;
+
+      // Floor Collision
+      const floorY = runnerCanvas.height - 40;
+      if (chef.y + chef.height >= floorY) {
+        chef.y = floorY - chef.height;
+        chef.vy = 0;
+        chef.isGrounded = true;
+      } else {
+        chef.isGrounded = false;
+      }
+
+      // Wall bounds
+      if (chef.x < 0) { chef.x = 0; chef.vx = 0; }
+      if (chef.x + chef.width > runnerCanvas.width) { chef.x = runnerCanvas.width - chef.width; chef.vx = 0; }
+
+      // --- DRAW ENVIRONMENT ---
+      // Ground
+      groundScroll = (groundScroll - 3) % 40;
+      ctx.fillStyle = '#d1d8e0';
+      ctx.fillRect(0, floorY, runnerCanvas.width, 40);
+      ctx.fillStyle = '#a5b1c2';
+      for(let i=0; i < runnerCanvas.width + 40; i+=40) {
+        ctx.fillRect(i + groundScroll, floorY, 20, 40); // Checkered floor pattern
+      }
+
+      // Draw Player
+      ctx.font = '34px Arial';
+      ctx.textAlign = 'left';
+      ctx.fillText(chef.emoji, chef.x, chef.y + 28);
+
+      // --- SPAWN ENTITIES ---
+      rFrameCount++;
+      // Spawn bad obstacles on ground
+      if (rFrameCount % 80 === 0) {
+        const hazards = ['🔥', '🔪', '🗑️'];
+        entities.push({
+          type: 'hazard',
+          x: runnerCanvas.width, y: floorY - 30, w: 30, h: 30,
+          vx: -4, emoji: hazards[Math.floor(Math.random() * hazards.length)]
+        });
+      }
+      // Spawn VIP Bosses in air
+      if (rFrameCount % 180 === 0) {
+        const isLucas = Math.random() > 0.5;
+        entities.push({
+          type: 'boss',
+          bossObj: isLucas ? imgLucas : imgJeriko,
+          name: isLucas ? 'Lucas' : 'Jeriko',
+          x: runnerCanvas.width, y: floorY - 120 - Math.random() * 50, 
+          w: 40, h: 40, vx: -3,
+          offset: Math.random() * 100 // for hovering math
         });
       }
 
-      for (let i = kitchenObstacles.length - 1; i >= 0; i--) {
-        let obs = kitchenObstacles[i];
-        obs.x -= gameSpeed;
-        ctx.font = '30px Arial';
-        ctx.fillText(obs.emoji, obs.x, obs.y + 25);
+      // --- UPDATE & DRAW ENTITIES ---
+      for (let i = entities.length - 1; i >= 0; i--) {
+        let e = entities[i];
+        e.x += e.vx;
 
-        // Simple Collision Hitbox
-        if (chef.x < obs.x + obs.width - 15 &&
-            chef.x + chef.width - 10 > obs.x &&
-            chef.y < obs.y + obs.height - 15 &&
-            chef.y + chef.height - 10 > obs.y) {
-            
-            isRunning = false;
-            ctx.fillStyle = 'rgba(26, 31, 46, 0.7)';
-            ctx.fillRect(0,0,runnerCanvas.width,runnerCanvas.height);
-            ctx.fillStyle = 'white';
-            ctx.font = 'bold 24px Playfair Display';
-            ctx.textAlign = 'center';
-            ctx.fillText('86\'d!', runnerCanvas.width/2, runnerCanvas.height/2);
-            document.getElementById('startRunnerBtn').style.display = 'inline-block';
-            document.getElementById('startRunnerBtn').textContent = 'Try Again';
-            ctx.textAlign = 'left'; // Reset for next draw
-            return;
+        // Hover effect for bosses
+        if(e.type === 'boss') e.y += Math.sin((rFrameCount + e.offset) * 0.05) * 1.5;
+
+        // Draw
+        if (e.type === 'hazard') {
+          ctx.fillText(e.emoji, e.x, e.y + 25);
+        } else if (e.type === 'boss') {
+          // If image loaded, draw it. Otherwise fallback to emoji
+          if(e.bossObj.complete && e.bossObj.naturalHeight !== 0) {
+            ctx.drawImage(e.bossObj, e.x, e.y, e.w, e.h);
+          } else {
+            ctx.fillText('👨‍💼', e.x, e.y + 30);
+          }
+          // Golden aura for boss
+          ctx.strokeStyle = 'gold'; ctx.lineWidth = 2;
+          ctx.strokeRect(e.x-2, e.y-2, e.w+4, e.h+4);
         }
 
-        if (obs.x + obs.width < 0) {
-          kitchenObstacles.splice(i, 1);
-          rScore++;
-          document.getElementById('runnerScore').textContent = rScore;
-          if (rScore % 5 === 0) gameSpeed += 0.5; // Speed up game over time
+        // Collision Hitbox
+        const pad = 5; // make hitbox slightly forgiving
+        if (chef.x + pad < e.x + e.w && chef.x + chef.width - pad > e.x &&
+            chef.y + pad < e.y + e.h && chef.y + chef.height - pad > e.y) {
+            
+            if (e.type === 'hazard') {
+              // GAME OVER
+              isRunning = false;
+              ctx.fillStyle = 'rgba(26, 31, 46, 0.8)';
+              ctx.fillRect(0,0,runnerCanvas.width,runnerCanvas.height);
+              ctx.fillStyle = 'white'; ctx.font = 'bold 30px Playfair Display'; ctx.textAlign = 'center';
+              ctx.fillText('86\'d! Service Over.', runnerCanvas.width/2, runnerCanvas.height/2 - 10);
+              ctx.font = '18px Plus Jakarta Sans';
+              ctx.fillText(`Final Score: ${rScore}`, runnerCanvas.width/2, runnerCanvas.height/2 + 25);
+              
+              document.getElementById('startRunnerBtn').style.display = 'inline-block';
+              document.getElementById('startRunnerBtn').textContent = 'Try Again';
+              return;
+            } else if (e.type === 'boss') {
+              // COLLECT VIP BOSS
+              rScore += 50;
+              entities.splice(i, 1);
+              document.getElementById('runnerScore').textContent = rScore;
+              continue; // Skip the rest of loop for this entity
+            }
+        }
+
+        // Remove off-screen and add points for surviving hazards
+        if (e.x + e.w < 0) {
+          if (e.type === 'hazard') {
+            rScore += 5;
+            document.getElementById('runnerScore').textContent = rScore;
+          }
+          entities.splice(i, 1);
         }
       }
 
-      rFrameCount++;
       runnerAnimId = requestAnimationFrame(runnerLoop);
     }
 
-    document.getElementById('startRunnerBtn').onclick = () => {
+    function startRunnerGame() {
+      runnerOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('startRunnerBtn').style.display = 'none';
       resetRunner();
       isRunning = true;
-      document.getElementById('startRunnerBtn').style.display = 'none';
       runnerLoop();
-    };
+    }
+
+    document.getElementById('startRunnerBtn').onclick = startRunnerGame;
 
     document.getElementById('closeRunnerBtn').onclick = () => {
       isRunning = false;
@@ -610,8 +576,7 @@
       document.getElementById('startRunnerBtn').textContent = 'Start Service';
     };
 
-
-    // --- 10 EXTREME EASTER EGGS + BOSS GAME + RUNNER GAME ---
+    // --- 10 EXTREME EASTER EGGS + MINIGAMES ---
 
     // 1. Extreme Gravity Glitch (Nav Logo)
     document.getElementById('navLogo').onclick = () => {
@@ -624,23 +589,24 @@
     let typed = '';
     window.onkeydown = (e) => {
       typed = (typed + e.key.toLowerCase()).slice(-5);
-      if (e.key === 'r') document.body.classList.toggle('rainbow-bg'); // Egg #2
-      if (typed.endsWith('lova')) { 
+      if (e.key === 'r' && !isRunning) document.body.classList.toggle('rainbow-bg');
+      if (typed.endsWith('lova') && !isRunning) { 
         document.body.style.transform = 'rotate(360deg)'; 
         setTimeout(()=>document.body.style.transform='none', 1000); 
-      } // Egg #5
-      if (typed.endsWith('big')) { // Egg #9
+      }
+      if (typed.endsWith('big') && !isRunning) {
         document.querySelectorAll('.link-btn').forEach(b => b.classList.toggle('pulse'));
       }
-      if (typed.endsWith('shake')) { // Egg #10
+      if (typed.endsWith('shake') && !isRunning) {
         document.body.classList.add('shake');
         setTimeout(() => document.body.classList.remove('shake'), 1000);
       }
-      if (typed.endsWith('boss') || typed.endsWith('game')) { // Egg #11 - BOSS GAME
+      if (typed.endsWith('boss') || typed.endsWith('game')) {
         startBossGame();
       }
-      if (typed.endsWith('run')) { // NEW EGG - RUNNER GAME
-        startRunnerGame();
+      if (typed.endsWith('run')) { // NEW MARIO-STYLE GAME
+        runnerOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
       }
     };
 
@@ -653,7 +619,7 @@
     };
     btn.addEventListener('mouseover', move);
     btn.onclick = () => { 
-      alert("IMPOSSIBLE! 🏆\n\nSecrets unlocked:\n- Type 'boss' to play Boss Challenge!\n- Type 'run' to play Service Rush!"); 
+      alert("IMPOSSIBLE! 🏆\n\nSecrets unlocked:\n- Type 'boss' to play Boss Challenge!\n- Type 'run' to play Service Rush DX!"); 
       btn.style.position = 'static'; 
     };
 
