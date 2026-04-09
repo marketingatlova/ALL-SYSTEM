@@ -64,7 +64,7 @@
     .shake { animation: extremeShake 0.1s infinite; }
     @keyframes extremeShake { 0% { transform: translate(2px, 1px) rotate(0deg); } 50% { transform: translate(-1px, -2px) rotate(-1deg); } 100% { transform: translate(3px, 2px) rotate(1deg); } }
 
-    /* BOSS FACE GAME STYLES */
+    /* OVERLAY STYLES */
     .boss-game-overlay {
       position: fixed;
       top: 0;
@@ -250,7 +250,6 @@
     </div>
   </div>
 
-  <!-- BOSS FACE GAME OVERLAY -->
   <div class="boss-game-overlay" id="bossGameOverlay">
     <div class="boss-game-container">
       <div class="boss-game-title">🎯 Boss Challenge</div>
@@ -263,6 +262,19 @@
       <div class="boss-game-buttons">
         <button class="boss-game-btn primary" id="nextRoundBtn" style="display:none;">Next Round</button>
         <button class="boss-game-btn secondary" id="closeGameBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="boss-game-overlay" id="runnerGameOverlay">
+    <div class="boss-game-container" style="max-width: 600px;">
+      <div class="boss-game-title">👨‍🍳 Service Rush!</div>
+      <div class="boss-game-subtitle">Tap canvas or press Spacebar to jump!</div>
+      <div class="boss-game-score" style="margin-bottom: 5px;">Plates Saved: <span id="runnerScore">0</span></div>
+      <canvas id="runnerCanvas" width="400" height="200" style="background: var(--canvas); border-radius: 12px; border: 2px solid var(--border); width: 100%; touch-action: none; cursor: pointer;"></canvas>
+      <div class="boss-game-buttons" style="margin-top: 20px;">
+        <button class="boss-game-btn primary" id="startRunnerBtn">Start Service</button>
+        <button class="boss-game-btn secondary" id="closeRunnerBtn">Close</button>
       </div>
     </div>
   </div>
@@ -469,7 +481,137 @@
       document.body.style.overflow = '';
     };
 
-    // --- 10 EXTREME EASTER EGGS + BOSS GAME ---
+    // --- FUNNY RUNNER GAME ---
+    const runnerOverlay = document.getElementById('runnerGameOverlay');
+    const runnerCanvas = document.getElementById('runnerCanvas');
+    const ctx = runnerCanvas.getContext('2d');
+    let runnerAnimId;
+    let isRunning = false;
+    let rScore = 0;
+    let rFrameCount = 0;
+    let gameSpeed = 5;
+
+    const chef = { x: 50, y: 150, width: 30, height: 30, dy: 0, gravity: 0.6, jumpPower: -10, isJumping: false, emoji: '👨‍🍳' };
+    let kitchenObstacles = [];
+
+    function resetRunner() {
+      chef.y = 150;
+      chef.dy = 0;
+      chef.isJumping = false;
+      kitchenObstacles = [];
+      rScore = 0;
+      rFrameCount = 0;
+      gameSpeed = 5;
+      document.getElementById('runnerScore').textContent = rScore;
+      ctx.clearRect(0, 0, runnerCanvas.width, runnerCanvas.height);
+      drawChef();
+    }
+
+    function drawChef() {
+      ctx.font = '30px Arial';
+      ctx.fillText(chef.emoji, chef.x, chef.y + 25);
+    }
+
+    function handleJump(e) {
+      if ((e.type === 'keydown' && e.code === 'Space') || e.type === 'touchstart' || e.type === 'mousedown') {
+        if (!chef.isJumping && isRunning) {
+          chef.dy = chef.jumpPower;
+          chef.isJumping = true;
+          e.preventDefault(); // Stop scrolling when hitting space
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handleJump, { passive: false });
+    runnerCanvas.addEventListener('touchstart', handleJump, { passive: false });
+    runnerCanvas.addEventListener('mousedown', handleJump);
+
+    function startRunnerGame() {
+      runnerOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      resetRunner();
+    }
+
+    function runnerLoop() {
+      if (!isRunning) return;
+      ctx.clearRect(0, 0, runnerCanvas.width, runnerCanvas.height);
+
+      // Physics
+      chef.y += chef.dy;
+      chef.dy += chef.gravity;
+      if (chef.y >= 150) {
+        chef.y = 150;
+        chef.isJumping = false;
+      }
+      drawChef();
+
+      // Obstacles logic
+      if (rFrameCount % Math.max(40, 100 - (rScore * 2)) === 0) {
+        const emojis = ['🍷', '🍝', '🔥', '🍕', '🗑️'];
+        kitchenObstacles.push({ 
+          x: runnerCanvas.width, 
+          y: 155, 
+          width: 30, 
+          height: 30, 
+          emoji: emojis[Math.floor(Math.random() * emojis.length)] 
+        });
+      }
+
+      for (let i = kitchenObstacles.length - 1; i >= 0; i--) {
+        let obs = kitchenObstacles[i];
+        obs.x -= gameSpeed;
+        ctx.font = '30px Arial';
+        ctx.fillText(obs.emoji, obs.x, obs.y + 25);
+
+        // Simple Collision Hitbox
+        if (chef.x < obs.x + obs.width - 15 &&
+            chef.x + chef.width - 10 > obs.x &&
+            chef.y < obs.y + obs.height - 15 &&
+            chef.y + chef.height - 10 > obs.y) {
+            
+            isRunning = false;
+            ctx.fillStyle = 'rgba(26, 31, 46, 0.7)';
+            ctx.fillRect(0,0,runnerCanvas.width,runnerCanvas.height);
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 24px Playfair Display';
+            ctx.textAlign = 'center';
+            ctx.fillText('86\'d!', runnerCanvas.width/2, runnerCanvas.height/2);
+            document.getElementById('startRunnerBtn').style.display = 'inline-block';
+            document.getElementById('startRunnerBtn').textContent = 'Try Again';
+            ctx.textAlign = 'left'; // Reset for next draw
+            return;
+        }
+
+        if (obs.x + obs.width < 0) {
+          kitchenObstacles.splice(i, 1);
+          rScore++;
+          document.getElementById('runnerScore').textContent = rScore;
+          if (rScore % 5 === 0) gameSpeed += 0.5; // Speed up game over time
+        }
+      }
+
+      rFrameCount++;
+      runnerAnimId = requestAnimationFrame(runnerLoop);
+    }
+
+    document.getElementById('startRunnerBtn').onclick = () => {
+      resetRunner();
+      isRunning = true;
+      document.getElementById('startRunnerBtn').style.display = 'none';
+      runnerLoop();
+    };
+
+    document.getElementById('closeRunnerBtn').onclick = () => {
+      isRunning = false;
+      cancelAnimationFrame(runnerAnimId);
+      runnerOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      document.getElementById('startRunnerBtn').style.display = 'inline-block';
+      document.getElementById('startRunnerBtn').textContent = 'Start Service';
+    };
+
+
+    // --- 10 EXTREME EASTER EGGS + BOSS GAME + RUNNER GAME ---
 
     // 1. Extreme Gravity Glitch (Nav Logo)
     document.getElementById('navLogo').onclick = () => {
@@ -478,8 +620,7 @@
       setTimeout(() => page.classList.remove('fall-away'), 1500);
     };
 
-    // 2. Rainbow Page (Keyboard R)
-    // 3, 5, 9, 10 & 11. Keyboard Secrets
+    // Keyboard Secrets
     let typed = '';
     window.onkeydown = (e) => {
       typed = (typed + e.key.toLowerCase()).slice(-5);
@@ -498,6 +639,9 @@
       if (typed.endsWith('boss') || typed.endsWith('game')) { // Egg #11 - BOSS GAME
         startBossGame();
       }
+      if (typed.endsWith('run')) { // NEW EGG - RUNNER GAME
+        startRunnerGame();
+      }
     };
 
     // 3. Extreme Runaway Button
@@ -509,7 +653,7 @@
     };
     btn.addEventListener('mouseover', move);
     btn.onclick = () => { 
-      alert("IMPOSSIBLE! 🏆\n\nSecret unlocked! Type 'boss' or 'game' anywhere to play the Boss Face Challenge!"); 
+      alert("IMPOSSIBLE! 🏆\n\nSecrets unlocked:\n- Type 'boss' to play Boss Challenge!\n- Type 'run' to play Service Rush!"); 
       btn.style.position = 'static'; 
     };
 
